@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Case Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('report') }}">Report</a></li>
+            <li><a href="{{ url_for('visualize') }}">Visualize</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h1>Test Case Report</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Test Case Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for testcase in testcases %}
+                <tr>
+                    <td>{{ testcase.name }}</td>
+                    <td>{{ testcase.description }}</td>
+                    <td>{{ testcase.status }}</td>
+                    <td>{{ testcase.created_at }}</td>
+                    <td>{{ testcase.updated_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <p>© 2022 Test Case Manager</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

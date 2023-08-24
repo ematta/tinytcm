@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Case Visualization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('report') }}">Report</a></li>
+            <li><a href="{{ url_for('visualize') }}">Visualize</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h1>Test Case Visualization</h1>
+        <div id="visualization">
+            <!-- Visualization will be inserted here by JavaScript -->
+        </div>
+    </main>
+    <footer>
+        <p>© 2022 Test Case Manager</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
