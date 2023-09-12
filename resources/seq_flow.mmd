@@ -1,0 +1,7 @@
+sequenceDiagram
+    participant U as User
+    participant TC as TestCase
+    U->>TC: upload_test_case(test_case)
+    TC->>U: run_test()
+    TC->>U: upload_result(result)
+    U->>TC: get_report()
