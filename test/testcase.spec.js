@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { app } from "../src/index";
 
-describe("Elysia", () => {
+describe("Testcase", () => {
   it("return a response", async () => {
     const tcBody = {
       name: "TC 1",
