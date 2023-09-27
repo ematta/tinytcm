@@ -1,6 +1,6 @@
 import { Elysia, NotFoundError } from "elysia";
 import { signIn, signUp, signOut } from "./handler/user/index";
-import { getTest, deleteTest, postTest, putTest } from "./handler/testcase/index";
+import { getTest, deleteTest, postTest, putTest } from "./handler/case/index";
 
 const config = require("config");
 
@@ -25,12 +25,12 @@ export const app = new Elysia()
       .post("/sign-up", signUp)
       .get("/sign-out", signOut)
   )
-  .group("/testcase", (app) =>
+  .group("/case", (app) =>
     app
       .post("/", postTest)
-      .put("/:id", putTest)
-      .get("/:id", getTest)
-      .delete("/:id", deleteTest)
+      .put("/:uuid", putTest)
+      .get("/:uuid", getTest)
+      .delete("/:uuid", deleteTest)
   )
   .listen(config.app.port ?? 3000);
 

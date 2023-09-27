@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { app } from "../src/index";
 
-describe("Elysia", () => {
+describe("User", () => {
   it("return a response", async () => {
     const response = await app
       .handle(
