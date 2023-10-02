@@ -1,4 +1,5 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it, jest } from "bun:test";
+
 import { app } from "../src/index";
 
 describe("Testcase", () => {
@@ -6,7 +7,7 @@ describe("Testcase", () => {
     const tcBody = {
       title: "TC 1",
       content: "Test Case 1",
-      authorId: 1,
+      userId: 1,
     };
 
     const tcUpdated = {
@@ -24,12 +25,11 @@ describe("Testcase", () => {
     const post = await app.handle(postRequest).then((res) => res);
     const postJson = await post.json();
     expect(post.status).toBe(200);
-    expect(postJson.uuid).not.toBeNull();
     expect(postJson.content).toBe(tcBody.content);
     expect(postJson.title).toBe(tcBody.title);
 
     const getRequest = new Request(
-      `http://localhost/case/${postJson.uuid}`,
+      `http://localhost/case/${postJson.id}`,
       {
         method: "GET",
       }
@@ -41,7 +41,7 @@ describe("Testcase", () => {
     expect(getResponse.title).toBe(tcBody.title);
 
     const putRequest = new Request(
-      `http://localhost/case/${postJson.uuid}`,
+      `http://localhost/case/${postJson.id}`,
       {
         method: "PUT",
         body: JSON.stringify(tcUpdated),
@@ -57,7 +57,7 @@ describe("Testcase", () => {
     expect(putJson.title).toBe(tcBody.title);
 
     const deleteRequest = new Request(
-      `http://localhost/case/${postJson.uuid}`,
+      `http://localhost/case/${postJson.id}`,
       {
         method: "PUT",
         body: JSON.stringify(tcUpdated),
