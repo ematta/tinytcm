@@ -14,9 +14,9 @@ export const app = new Elysia()
   .onError(({ code, error, set }) => {
     if (code === "NOT_FOUND") {
       set.status = 404;
-      return new NotFoundError(error.toString());
+      return new NotFoundError();
     }
-    return new Response(error.toString());
+    return new Response(error.message, { status: 500 });
   })
   .get("/ping", () => "pong")
   .group("/user", (app) =>
@@ -28,9 +28,9 @@ export const app = new Elysia()
   .group("/case", (app) =>
     app
       .post("/", postTest)
-      .put("/:uuid", putTest)
-      .get("/:uuid", getTest)
-      .delete("/:uuid", deleteTest)
+      .put("/:id", putTest)
+      .get("/:id", getTest)
+      .delete("/:id", deleteTest)
   )
   .listen(config.app.port ?? 3000);
 
