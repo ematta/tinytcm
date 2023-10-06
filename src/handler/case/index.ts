@@ -2,11 +2,10 @@ import crypto from "crypto";
 import prisma from "../../client";
 
 export const getTest = async ({ params }) => {
-  const { uuid } = params;
-
+  const { id } = params;
   const caseFound = await prisma.case.findUnique({
     where: {
-      uuid,
+      id: parseInt(id),
     },
   });
 
@@ -15,11 +14,11 @@ export const getTest = async ({ params }) => {
   };
 };
 export const deleteTest = ({ params }) => {
-  const { uuid } = params;
+  const { id } = params;
 
   return prisma.case.delete({
     where: {
-      uuid,
+      id: parseInt(id),
     },
   });
 };
@@ -27,19 +26,16 @@ export const deleteTest = ({ params }) => {
 export const postTest = async ({ body }) => {
   return prisma.case.create({
     data: {
-      ...body,
-      uuid: crypto.randomUUID(),
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      ...body
     },
   });
 };
 export const putTest = ({ body, params }) => {
-  const { uuid } = params;
+  const { id } = params;
 
   return prisma.case.update({
     where: {
-      uuid,
+      id: parseInt(id),
     },
     data: {
       ...body,

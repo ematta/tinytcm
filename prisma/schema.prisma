@@ -6,27 +6,46 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  name         String?
+  authCode     String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now()) @updatedAt
+  userProfiles UserProfile[]
+  cases        Case[]
+}
+
+model UserProfile {
   id        Int      @id @default(autoincrement())
-  email     String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
   name      String?
-  authCode  String?
+  avatar    String?
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  cases     Case[]
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Case {
   id        Int      @id @default(autoincrement())
-  uuid      String   @unique
   title     String
   content   String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
+  updatedAt DateTime @default(now()) @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+}
+
+model Persona {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  tags        String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
 }
